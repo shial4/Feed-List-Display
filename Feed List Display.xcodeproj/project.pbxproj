@@ -20,6 +20,7 @@
 		62F6AF4A22C2EBE000923028 /* DisplayListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F6AF4922C2EBE000923028 /* DisplayListViewModel.swift */; };
 		62F6AF4C22C30C0700923028 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F6AF4B22C30C0700923028 /* Post.swift */; };
 		62F6AF5122C3174C00923028 /* ApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F6AF5022C3174C00923028 /* ApplicationTests.swift */; };
+		62F6AF5422C331FD00923028 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 62F6AF5322C331FD00923028 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		62F6AF4922C2EBE000923028 /* DisplayListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayListViewModel.swift; sourceTree = "<group>"; };
 		62F6AF4B22C30C0700923028 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		62F6AF5022C3174C00923028 /* ApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTests.swift; sourceTree = "<group>"; };
+		62F6AF5322C331FD00923028 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		78FBDD9770F484986480008B /* Pods-Feed List Display.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feed List Display.debug.xcconfig"; path = "Target Support Files/Pods-Feed List Display/Pods-Feed List Display.debug.xcconfig"; sourceTree = "<group>"; };
 		CCF9CB403A9DEDF2D03B9447 /* Pods-Feed List DisplayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feed List DisplayTests.debug.xcconfig"; path = "Target Support Files/Pods-Feed List DisplayTests/Pods-Feed List DisplayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D429A4F685531502D97A85DD /* Pods-Feed List DisplayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feed List DisplayTests.release.xcconfig"; path = "Target Support Files/Pods-Feed List DisplayTests/Pods-Feed List DisplayTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		62F6AF1322C2E79B00923028 = {
 			isa = PBXGroup;
 			children = (
+				62F6AF5322C331FD00923028 /* README.md */,
 				62F6AF1E22C2E79B00923028 /* Feed List Display */,
 				62F6AF3622C2E79C00923028 /* Feed List DisplayTests */,
 				62F6AF1D22C2E79B00923028 /* Products */,
@@ -261,6 +264,7 @@
 			files = (
 				62F6AF2D22C2E79C00923028 /* LaunchScreen.storyboard in Resources */,
 				62F6AF2A22C2E79C00923028 /* Assets.xcassets in Resources */,
+				62F6AF5422C331FD00923028 /* README.md in Resources */,
 				62F6AF2522C2E79B00923028 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
