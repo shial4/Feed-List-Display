@@ -7,21 +7,19 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 protocol DisplayListViewCoordinator: Coordinator {
-    func fetchData(_ callback: @escaping (Result<[Post], Error>) -> Void) 
+    func fetchData(_ callback: @escaping (Result<[Post], Error>) -> Void)
+    func notifyUpdate() throws
 }
 
 class DisplayListViewModel: ViewModel {
     typealias ControllerType = DisplayListViewController
     private var controller: DisplayListViewController!
     private var coordinator: DisplayListViewCoordinator!
-    private var workItem: DispatchWorkItem?
-    private var data: [Post]? {
-        didSet {
-            configure()
-        }
-    }
+    private(set) var data: BehaviorRelay<[Post]>
     
     required init(controller: DisplayListViewController, coordinator: Coordinator, model: Any?) throws {
         guard let coord = coordinator as? DisplayListViewCoordinator else {
@@ -32,17 +30,35 @@ class DisplayListViewModel: ViewModel {
         }
         self.coordinator = coord
         self.controller = controller
-        self.data = data
+        self.data = BehaviorRelay(value: data)
     }
     
     func update(model: Any?) throws {
-        guard let user = model as? [Post] else {
+        guard let posts = model as? [Post] else {
             throw CoordinatorError.modelTypeMismatch
         }
-        self.data = user
+        self.data.accept(Array(Set(data.value + posts)))
     }
     
     func configure() {
         controller.tableView.reloadData()
+    }
+    
+    func refreshData(_ control: UIRefreshControl) {
+        coordinator.fetchData { result in
+            DispatchQueue.main.async {
+                control.endRefreshing()
+                switch result {
+                case .success(_):
+                    do {
+                        try self.coordinator.notifyUpdate()
+                    } catch let error {
+                        self.coordinator.show(error)
+                    }
+                case .failure(let error):
+                    self.coordinator.show(error)
+                }
+            }
+        }
     }
 }

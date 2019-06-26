@@ -133,13 +133,11 @@ extension ApplicationCoordinator: DisplayListViewCoordinator {
         //Featch new post from server
         _ = Application.featchPosts { values, error in
             guard let data = values, error == nil else {
-                print(error as Any)
                 return callback(.failure(error!))
             }
             do {
                 try Post.update(sequance: data)
             } catch let throwError {
-                self.show(throwError)
                 return callback(.failure(throwError))
             }
             return callback(.success(data))
