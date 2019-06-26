@@ -56,5 +56,18 @@ class ApplicationTests: XCTestCase {
         XCTAssert(Post(userId: 12, id: 2, title: data.title, body: data.body, image: data.image, thumbnail: data.thumbnail).thumbnailUrl == data.thumbnail)
     }
     
-    
+    func testPostRequest() {
+        struct TestConfiguration: APIConfiguration {
+            static var apiUrlString: String {
+                return "https://ios-code-challenge.mockservice.io/"
+            }
+        }
+        
+        let exp = expectation(description: "request test")
+        let request = Application<TestConfiguration>.featchPosts { posts, error in
+            exp.fulfill()
+        }
+        XCTAssertNotNil(request)
+        waitForExpectations(timeout: 10, handler: nil)
+    }
 }

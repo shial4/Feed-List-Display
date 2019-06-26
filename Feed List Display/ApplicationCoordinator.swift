@@ -144,7 +144,7 @@ extension ApplicationCoordinator: DisplayListViewCoordinator {
     
     func fetchData(_ callback: @escaping (RequestResult<[Post], Error>) -> Void) {
         //Featch new post from server
-        _ = Application.featchPosts { values, error in
+        _ = Application<DefaultConfiguration>.featchPosts { values, error in
             guard let data = values, error == nil else {
                 return callback(.failure(error!))
             }
