@@ -10,6 +10,8 @@
 		068CF7918AD20E67E6849330 /* Pods_Feed_List_DisplayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7CBFAA209376C8A787C0A0 /* Pods_Feed_List_DisplayTests.framework */; };
 		44F24CA229B00BAA0A0BF617 /* Pods_Feed_List_Display.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4F1A6E0C2004F4CDDAE008 /* Pods_Feed_List_Display.framework */; };
 		62139AF622C34FA000B30DDE /* PostSpecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62139AF522C34FA000B30DDE /* PostSpecTests.swift */; };
+		62139AF922C3752100B30DDE /* PostPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62139AF822C3752100B30DDE /* PostPreviewViewController.swift */; };
+		62139AFB22C3754E00B30DDE /* PostPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62139AFA22C3754E00B30DDE /* PostPreviewViewModel.swift */; };
 		62F6AF2022C2E79B00923028 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F6AF1F22C2E79B00923028 /* AppDelegate.swift */; };
 		62F6AF2222C2E79B00923028 /* DisplayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F6AF2122C2E79B00923028 /* DisplayListViewController.swift */; };
 		62F6AF2522C2E79B00923028 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62F6AF2322C2E79B00923028 /* Main.storyboard */; };
@@ -39,6 +41,8 @@
 		0E4F1A6E0C2004F4CDDAE008 /* Pods_Feed_List_Display.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feed_List_Display.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E7CBFAA209376C8A787C0A0 /* Pods_Feed_List_DisplayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feed_List_DisplayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62139AF522C34FA000B30DDE /* PostSpecTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSpecTests.swift; sourceTree = "<group>"; };
+		62139AF822C3752100B30DDE /* PostPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPreviewViewController.swift; sourceTree = "<group>"; };
+		62139AFA22C3754E00B30DDE /* PostPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPreviewViewModel.swift; sourceTree = "<group>"; };
 		62F6AF1C22C2E79B00923028 /* Feed List Display.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Feed List Display.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F6AF1F22C2E79B00923028 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62F6AF2122C2E79B00923028 /* DisplayListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayListViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +90,15 @@
 				62139AF522C34FA000B30DDE /* PostSpecTests.swift */,
 			);
 			path = RealmOperations;
+			sourceTree = "<group>";
+		};
+		62139AF722C374FB00B30DDE /* PostPreview */ = {
+			isa = PBXGroup;
+			children = (
+				62139AF822C3752100B30DDE /* PostPreviewViewController.swift */,
+				62139AFA22C3754E00B30DDE /* PostPreviewViewModel.swift */,
+			);
+			path = PostPreview;
 			sourceTree = "<group>";
 		};
 		62F6AF1322C2E79B00923028 = {
@@ -138,6 +151,7 @@
 		62F6AF4222C2EA1400923028 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				62139AF722C374FB00B30DDE /* PostPreview */,
 				62F6AF4822C2EBB900923028 /* DisplayList */,
 				62F6AF2322C2E79B00923028 /* Main.storyboard */,
 			);
@@ -377,7 +391,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				62F6AF4622C2EA5300923028 /* Application.swift in Sources */,
+				62139AFB22C3754E00B30DDE /* PostPreviewViewModel.swift in Sources */,
 				62F6AF2222C2E79B00923028 /* DisplayListViewController.swift in Sources */,
+				62139AF922C3752100B30DDE /* PostPreviewViewController.swift in Sources */,
 				62F6AF4A22C2EBE000923028 /* DisplayListViewModel.swift in Sources */,
 				62F6AF4C22C30C0700923028 /* Post.swift in Sources */,
 				62F6AF2022C2E79B00923028 /* AppDelegate.swift in Sources */,

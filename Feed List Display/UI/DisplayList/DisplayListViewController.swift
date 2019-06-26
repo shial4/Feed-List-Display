@@ -38,10 +38,15 @@ class DisplayListViewController: ViewController {
                 }
                 if let imageView = cell.viewWithTag(1) as? UIImageView {
                     let url = URL(string: item.thumbnailUrl)
-                    imageView.kf.setImage(with: url)
+                    imageView.kf.indicatorType = .activity
+                    imageView.kf.setImage(with: url, options: [.transition(.fade(0.2))])
                 }
             }
             .disposed(by: disposeBag)
+        
+        tableView.rx.modelSelected(Post.self).bind {[weak self] post in
+            self?.viewModel.showDetails(post)
+        }.disposed(by: disposeBag)
     }
     
     @objc func refresh(sender: UIRefreshControl) {

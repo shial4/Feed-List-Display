@@ -55,4 +55,6 @@ class ApplicationTests: XCTestCase {
         XCTAssert(Post(userId: 12, id: 2, title: data.title, body: data.body, image: data.image, thumbnail: data.thumbnail).imageUrl == data.image)
         XCTAssert(Post(userId: 12, id: 2, title: data.title, body: data.body, image: data.image, thumbnail: data.thumbnail).thumbnailUrl == data.thumbnail)
     }
+    
+    
 }

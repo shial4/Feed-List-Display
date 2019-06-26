@@ -21,4 +21,13 @@ class Feed_List_DisplayTests: XCTestCase {
             XCTFail(error.localizedDescription)
         }
     }
+    
+    func testPostPreviewViewController() {
+        do {
+            let _: PostPreviewViewController = try coordinator.viewController(Post())
+            XCTAssert(true)
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+    }
 }

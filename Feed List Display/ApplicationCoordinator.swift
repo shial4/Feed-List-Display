@@ -161,4 +161,17 @@ extension ApplicationCoordinator: DisplayListViewCoordinator {
         //Update model
         let _: DisplayListViewController? = try self.viewController(getLocalData())
     }
+    /**
+     Move to preview screen
+     */
+    func setToPreview(_ value: Post) {
+        do {
+            let controller: PostPreviewViewController = try viewController(value)
+            navigationController.pushViewController(controller, animated: false)
+        } catch let error {
+            show(error)
+        }
+    }
 }
+
+extension ApplicationCoordinator: PostPreviewViewCoordinator {}

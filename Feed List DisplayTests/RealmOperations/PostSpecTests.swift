@@ -58,4 +58,19 @@ class PostSpecTests: XCTestCase {
         let query = Post.getAll(realm)
         XCTAssert(realm.objects(Post.self).count == query.count)
     }
+    
+    func testRealmChanges() {
+        let exp = expectation(description: "Changes To Realm Post collection")
+        let _ = Post.subscribe(realm, callback: { _ in
+            exp.fulfill()
+            XCTAssert(true)
+        })
+        let post = Post()
+        do {
+            try post.update(realm)
+        } catch let catchError {
+            XCTFail(catchError.localizedDescription)
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
 }

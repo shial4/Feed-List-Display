@@ -14,6 +14,7 @@ import RealmSwift
 protocol DisplayListViewCoordinator: Coordinator {
     func fetchData(_ callback: @escaping (RequestResult<[Post], Error>) -> Void)
     func notifyUpdate() throws
+    func setToPreview(_ value: Post)
 }
 
 class DisplayListViewModel: ViewModel {
@@ -53,8 +54,8 @@ class DisplayListViewModel: ViewModel {
         self.data.accept(Array(Set(data.value + posts)))
     }
     
-    func showDetails() {
-        
+    func showDetails(_ post: Post) {
+        coordinator.setToPreview(post)
     }
     
     func refreshData(_ control: UIRefreshControl) {
