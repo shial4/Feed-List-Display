@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 import UIKit
 
 // Helper typealias for future UIViewController which are part of coordinator patter.
@@ -120,7 +121,7 @@ class ApplicationCoordinator: Coordinator {
 extension ApplicationCoordinator: DisplayListViewCoordinator {
     func getLocalData() -> [Post] {
         do {
-            let posts = try Post.getAll()
+            let posts = try Post.getAll(try Realm())
             //For purpose of this (cus it is small list and all) we will skip paginations and subscriptions. Lets just assume it is all there. Here we will simply get the values from realm database.
             return posts.map({ $0 })
         } catch let error {
@@ -136,7 +137,7 @@ extension ApplicationCoordinator: DisplayListViewCoordinator {
                 return callback(.failure(error!))
             }
             do {
-                try Post.update(sequance: data)
+                try Post.update(try Realm(), sequance: data)
             } catch let throwError {
                 return callback(.failure(throwError))
             }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		068CF7918AD20E67E6849330 /* Pods_Feed_List_DisplayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E7CBFAA209376C8A787C0A0 /* Pods_Feed_List_DisplayTests.framework */; };
 		44F24CA229B00BAA0A0BF617 /* Pods_Feed_List_Display.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4F1A6E0C2004F4CDDAE008 /* Pods_Feed_List_Display.framework */; };
+		62139AF622C34FA000B30DDE /* PostSpecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62139AF522C34FA000B30DDE /* PostSpecTests.swift */; };
 		62F6AF2022C2E79B00923028 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F6AF1F22C2E79B00923028 /* AppDelegate.swift */; };
 		62F6AF2222C2E79B00923028 /* DisplayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F6AF2122C2E79B00923028 /* DisplayListViewController.swift */; };
 		62F6AF2522C2E79B00923028 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62F6AF2322C2E79B00923028 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 		0CFB95D51B4CD97BF2A825F8 /* Pods-Feed List Display.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feed List Display.release.xcconfig"; path = "Target Support Files/Pods-Feed List Display/Pods-Feed List Display.release.xcconfig"; sourceTree = "<group>"; };
 		0E4F1A6E0C2004F4CDDAE008 /* Pods_Feed_List_Display.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feed_List_Display.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E7CBFAA209376C8A787C0A0 /* Pods_Feed_List_DisplayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feed_List_DisplayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		62139AF522C34FA000B30DDE /* PostSpecTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSpecTests.swift; sourceTree = "<group>"; };
 		62F6AF1C22C2E79B00923028 /* Feed List Display.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Feed List Display.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F6AF1F22C2E79B00923028 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62F6AF2122C2E79B00923028 /* DisplayListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayListViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		62139AF422C34F6C00B30DDE /* RealmOperations */ = {
+			isa = PBXGroup;
+			children = (
+				62139AF522C34FA000B30DDE /* PostSpecTests.swift */,
+			);
+			path = RealmOperations;
+			sourceTree = "<group>";
+		};
 		62F6AF1322C2E79B00923028 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +127,7 @@
 		62F6AF3622C2E79C00923028 /* Feed List DisplayTests */ = {
 			isa = PBXGroup;
 			children = (
+				62139AF422C34F6C00B30DDE /* RealmOperations */,
 				62F6AF4D22C3171D00923028 /* Integration */,
 				62F6AF3722C2E79C00923028 /* Feed_List_DisplayTests.swift */,
 				62F6AF3922C2E79C00923028 /* Info.plist */,
@@ -208,6 +219,7 @@
 				62F6AF2F22C2E79C00923028 /* Sources */,
 				62F6AF3022C2E79C00923028 /* Frameworks */,
 				62F6AF3122C2E79C00923028 /* Resources */,
+				0402CA05F4C0D43395EFCA4D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -279,6 +291,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0402CA05F4C0D43395EFCA4D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Feed List DisplayTests/Pods-Feed List DisplayTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Feed List DisplayTests/Pods-Feed List DisplayTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Feed List DisplayTests/Pods-Feed List DisplayTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4A56DABA84D8ACA62AA45C3C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -362,6 +391,7 @@
 			files = (
 				62F6AF5122C3174C00923028 /* ApplicationTests.swift in Sources */,
 				62F6AF3822C2E79C00923028 /* Feed_List_DisplayTests.swift in Sources */,
+				62139AF622C34FA000B30DDE /* PostSpecTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
