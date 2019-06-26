@@ -11,7 +11,7 @@ import MapKit
 /**
  Result enum providing data about success or failure from the request.
  */
-enum Result<Value, Error: Swift.Error> {
+enum RequestResult<Value, Error: Swift.Error> {
     case success(Value)
     case failure(Error)
     

@@ -80,8 +80,12 @@ extension Post {
         }
     }
     //Get all elements from realm
-    static func getAll(_ realm: Realm) throws -> Results<Post> {
+    static func getAll(_ realm: Realm) -> Results<Post> {
         let categories: Results<Post> = { realm.objects(Post.self) }()
         return categories
+    }
+    
+    static func subscribe(_ realm: Realm, callback: @escaping (RealmCollectionChange<Results<Post>>) -> ()) -> NotificationToken {
+        return realm.objects(Post.self).observe(callback)
     }
 }

@@ -55,7 +55,7 @@ class PostSpecTests: XCTestCase {
         }
         XCTAssert(realm.objects(Post.self).count == 4)
         
-        let query = try! Post.getAll(realm)
+        let query = Post.getAll(realm)
         XCTAssert(realm.objects(Post.self).count == query.count)
     }
 }
