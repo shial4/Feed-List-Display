@@ -11,7 +11,7 @@ import MapKit
 /**
  Result enum providing data about success or failure from the request.
  */
-enum Result<Value, Error: Swift.Error> {
+enum RequestResult<Value, Error: Swift.Error> {
     case success(Value)
     case failure(Error)
     
@@ -24,9 +24,19 @@ enum Result<Value, Error: Swift.Error> {
     }
 }
 
-class Application {
-    private static let apiUrlString = "https://ios-code-challenge.mockservice.io/"
-    
+//API Configuration protocol
+protocol APIConfiguration {
+    static var apiUrlString: String { get }
+}
+
+///API Protocol object configuration
+struct DefaultConfiguration: APIConfiguration {
+    static var apiUrlString: String {
+        return "https://ios-code-challenge.mockservice.io/"
+    }
+}
+///Main class working on API Configuration injected by type
+class Application<T: APIConfiguration> {
     class func featchPosts(_ handler: @escaping (_ response: [Post]?, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = urlComponents(for: "posts", queryItems: nil)?.url else {
             handler(nil, NSError(domain: "Can not construct url", code: NSURLErrorBadURL))
@@ -44,7 +54,7 @@ class Application {
     }
     
     private class func urlComponents(for path: String, queryItems: [URLQueryItem]?) -> URLComponents? {
-        var urlComponents = URLComponents(string: apiUrlString + path)
+        var urlComponents = URLComponents(string: T.apiUrlString + path)
         urlComponents?.queryItems = queryItems
         return urlComponents
     }

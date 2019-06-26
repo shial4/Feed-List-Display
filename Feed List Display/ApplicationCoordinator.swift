@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 import UIKit
 
 // Helper typealias for future UIViewController which are part of coordinator patter.
@@ -22,7 +23,6 @@ protocol Coordinator {
 protocol ViewModel {
     associatedtype ControllerType: Controller
     init(controller: ControllerType, coordinator: Coordinator, model: Any?) throws
-    func configure()
     func update(model: Any?) throws
 }
 // Controller protocol created for purpose of MVVM patter.
@@ -35,6 +35,19 @@ enum CoordinatorError: Error {
     case storyboardTypeMismatch
     case coordinatorTypeMismatch
     case modelTypeMismatch
+}
+
+extension CoordinatorError: LocalizedError {
+    var errorDescription: String? {
+        return "\(self)".unicodeScalars.reduce("") {
+            if CharacterSet.uppercaseLetters.contains($1) {
+                if $0!.count > 0 {
+                    return ($0! + " " + String($1).lowercased())
+                }
+            }
+            return $0! + String($1)
+        }
+    }
 }
 
 //Main coordinator class. Implementing other coordinators protocols and flow operations.
@@ -120,7 +133,7 @@ class ApplicationCoordinator: Coordinator {
 extension ApplicationCoordinator: DisplayListViewCoordinator {
     func getLocalData() -> [Post] {
         do {
-            let posts = try Post.getAll()
+            let posts = Post.getAll(try Realm())
             //For purpose of this (cus it is small list and all) we will skip paginations and subscriptions. Lets just assume it is all there. Here we will simply get the values from realm database.
             return posts.map({ $0 })
         } catch let error {
@@ -129,14 +142,14 @@ extension ApplicationCoordinator: DisplayListViewCoordinator {
         return []
     }
     
-    func fetchData(_ callback: @escaping (Result<[Post], Error>) -> Void) {
+    func fetchData(_ callback: @escaping (RequestResult<[Post], Error>) -> Void) {
         //Featch new post from server
-        _ = Application.featchPosts { values, error in
+        _ = Application<DefaultConfiguration>.featchPosts { values, error in
             guard let data = values, error == nil else {
                 return callback(.failure(error!))
             }
             do {
-                try Post.update(sequance: data)
+                try Post.update(try Realm(), sequance: data)
             } catch let throwError {
                 return callback(.failure(throwError))
             }
@@ -148,4 +161,17 @@ extension ApplicationCoordinator: DisplayListViewCoordinator {
         //Update model
         let _: DisplayListViewController? = try self.viewController(getLocalData())
     }
+    /**
+     Move to preview screen
+     */
+    func setToPreview(_ value: Post) {
+        do {
+            let controller: PostPreviewViewController = try viewController(value)
+            navigationController.pushViewController(controller, animated: false)
+        } catch let error {
+            show(error)
+        }
+    }
 }
+
+extension ApplicationCoordinator: PostPreviewViewCoordinator {}

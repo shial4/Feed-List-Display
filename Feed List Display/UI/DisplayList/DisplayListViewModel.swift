@@ -9,10 +9,12 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RealmSwift
 
 protocol DisplayListViewCoordinator: Coordinator {
-    func fetchData(_ callback: @escaping (Result<[Post], Error>) -> Void)
+    func fetchData(_ callback: @escaping (RequestResult<[Post], Error>) -> Void)
     func notifyUpdate() throws
+    func setToPreview(_ value: Post)
 }
 
 class DisplayListViewModel: ViewModel {
@@ -20,6 +22,11 @@ class DisplayListViewModel: ViewModel {
     private var controller: DisplayListViewController!
     private var coordinator: DisplayListViewCoordinator!
     private(set) var data: BehaviorRelay<[Post]>
+    private var token: NotificationToken!
+    
+    deinit {
+        token.invalidate()
+    }
     
     required init(controller: DisplayListViewController, coordinator: Coordinator, model: Any?) throws {
         guard let coord = coordinator as? DisplayListViewCoordinator else {
@@ -31,6 +38,13 @@ class DisplayListViewModel: ViewModel {
         self.coordinator = coord
         self.controller = controller
         self.data = BehaviorRelay(value: data)
+        self.token = Post.subscribe(try Realm(), callback: { [weak self] _ in
+            do {
+                try self?.coordinator.notifyUpdate()
+            } catch let throwError {
+                self?.coordinator.show(throwError)
+            }
+        })
     }
     
     func update(model: Any?) throws {
@@ -40,8 +54,8 @@ class DisplayListViewModel: ViewModel {
         self.data.accept(Array(Set(data.value + posts)))
     }
     
-    func configure() {
-        controller.tableView.reloadData()
+    func showDetails(_ post: Post) {
+        coordinator.setToPreview(post)
     }
     
     func refreshData(_ control: UIRefreshControl) {
@@ -50,11 +64,7 @@ class DisplayListViewModel: ViewModel {
                 control.endRefreshing()
                 switch result {
                 case .success(_):
-                    do {
-                        try self.coordinator.notifyUpdate()
-                    } catch let error {
-                        self.coordinator.show(error)
-                    }
+                    break //Changes will be update thru realm notification
                 case .failure(let error):
                     self.coordinator.show(error)
                 }

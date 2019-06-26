@@ -68,23 +68,24 @@ class Post: Object, Decodable {
  */
 extension Post {
     //Update self
-    func update() throws {
-        let realm = try Realm()
+    func update(_ realm: Realm) throws {
         try realm.write {
-            realm.add(self)
+            realm.add(self, update: .modified)
         }
     }
     //Update sequance
-    static func update(sequance: [Post]) throws {
-        let realm = try Realm()
+    static func update(_ realm: Realm, sequance: [Post]) throws {
         try realm.write {
-            realm.add(sequance)
+            realm.add(sequance, update: .modified)
         }
     }
     //Get all elements from realm
-    static func getAll() throws -> Results<Post> {
-        let realm = try Realm()
+    static func getAll(_ realm: Realm) -> Results<Post> {
         let categories: Results<Post> = { realm.objects(Post.self) }()
         return categories
+    }
+    
+    static func subscribe(_ realm: Realm, callback: @escaping (RealmCollectionChange<Results<Post>>) -> ()) -> NotificationToken {
+        return realm.objects(Post.self).observe(callback)
     }
 }
