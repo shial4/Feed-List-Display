@@ -14,7 +14,8 @@ class DisplayListViewController: TableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        //Adding foother, to prevent display of empty section/rows separators
+        tableView.tableFooterView = UIView()
     }
 }
 

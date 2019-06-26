@@ -15,7 +15,6 @@ typealias ViewController = UIViewController & Controller
 typealias TableViewController = UITableViewController & Controller
 // Default delcaration of Coordinator.
 protocol Coordinator {
-    var application: Application { get }
     func show(_ error: Error)
     func alert(title: String, message: String?)
 }
@@ -49,8 +48,6 @@ class ApplicationCoordinator: Coordinator {
      Main UINavigationController of application which will act as a root controller.
      */
     lazy var navigationController: UINavigationController = UINavigationController(nibName: nil, bundle: nil)
-    /// Referance of Application for easy access from our VM instances.
-    lazy var application: Application = Application()
     
     init(window: UIWindow) {
         self.window = window
@@ -60,13 +57,7 @@ class ApplicationCoordinator: Coordinator {
      Method invoked only once during app lunch. ALl necessary setup for the application is done here. If that would take more then ten seconds. It would be smart to introduce the middle controller with a loader or some kind of animation to do the heavy lifting over there. Once that would be completed we would proceed as normal. However, for this example, that's more than enough.
      */
     func start() {
-        do {
-            let posts = try Post.getAll()
-            //For purpose of this (cus it is small list and all) we will skip paginations and subscriptions. Lets just assume it is all there. Here we will simply get the values from realm database.
-            setToList(posts.map({ $0 }))
-        } catch let error {
-            show(error)
-        }
+        setToList(getLocalData())
     }
     /**
      Alert helper method helps present message to the application user.
@@ -123,5 +114,40 @@ class ApplicationCoordinator: Coordinator {
         } catch let error {
             show(error)
         }
+    }
+}
+
+extension ApplicationCoordinator: DisplayListViewCoordinator {
+    func getLocalData() -> [Post] {
+        do {
+            let posts = try Post.getAll()
+            //For purpose of this (cus it is small list and all) we will skip paginations and subscriptions. Lets just assume it is all there. Here we will simply get the values from realm database.
+            return posts.map({ $0 })
+        } catch let error {
+            show(error)
+        }
+        return []
+    }
+    
+    func fetchData(_ callback: @escaping (Result<[Post], Error>) -> Void) {
+        //Featch new post from server
+        _ = Application.featchPosts { values, error in
+            guard let data = values, error == nil else {
+                print(error as Any)
+                return callback(.failure(error!))
+            }
+            do {
+                try Post.update(sequance: data)
+            } catch let throwError {
+                self.show(throwError)
+                return callback(.failure(throwError))
+            }
+            return callback(.success(data))
+        }
+    }
+    
+    func notifyUpdate() throws {
+        //Update model
+        let _: DisplayListViewController? = try self.viewController(getLocalData())
     }
 }

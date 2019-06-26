@@ -67,13 +67,21 @@ class Post: Object, Decodable {
  Helper methods for eas of work with realm.
  */
 extension Post {
+    //Update self
     func update() throws {
         let realm = try Realm()
         try realm.write {
             realm.add(self)
         }
     }
-    
+    //Update sequance
+    static func update(sequance: [Post]) throws {
+        let realm = try Realm()
+        try realm.write {
+            realm.add(sequance)
+        }
+    }
+    //Get all elements from realm
     static func getAll() throws -> Results<Post> {
         let realm = try Realm()
         let categories: Results<Post> = { realm.objects(Post.self) }()

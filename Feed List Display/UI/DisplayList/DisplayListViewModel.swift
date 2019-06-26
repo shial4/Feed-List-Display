@@ -9,7 +9,7 @@
 import Foundation
 
 protocol DisplayListViewCoordinator: Coordinator {
-    
+    func fetchData(_ callback: @escaping (Result<[Post], Error>) -> Void) 
 }
 
 class DisplayListViewModel: ViewModel {
@@ -17,7 +17,7 @@ class DisplayListViewModel: ViewModel {
     private var controller: DisplayListViewController!
     private var coordinator: DisplayListViewCoordinator!
     private var workItem: DispatchWorkItem?
-    private var data: [Any]? {
+    private var data: [Post]? {
         didSet {
             configure()
         }
@@ -27,7 +27,7 @@ class DisplayListViewModel: ViewModel {
         guard let coord = coordinator as? DisplayListViewCoordinator else {
             throw CoordinatorError.coordinatorTypeMismatch
         }
-        guard let data = model as? [Any] else {
+        guard let data = model as? [Post] else {
             throw CoordinatorError.modelTypeMismatch
         }
         self.coordinator = coord
@@ -36,7 +36,7 @@ class DisplayListViewModel: ViewModel {
     }
     
     func update(model: Any?) throws {
-        guard let user = model as? [Any] else {
+        guard let user = model as? [Post] else {
             throw CoordinatorError.modelTypeMismatch
         }
         self.data = user

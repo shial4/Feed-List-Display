@@ -27,7 +27,7 @@ enum Result<Value, Error: Swift.Error> {
 class Application {
     private static let apiUrlString = "https://ios-code-challenge.mockservice.io/"
     
-    private class func featchPosts(_ handler: @escaping (_ response: [Post]?, _ error: Error?) -> Void) -> URLSessionDataTask? {
+    class func featchPosts(_ handler: @escaping (_ response: [Post]?, _ error: Error?) -> Void) -> URLSessionDataTask? {
         guard let url = urlComponents(for: "posts", queryItems: nil)?.url else {
             handler(nil, NSError(domain: "Can not construct url", code: NSURLErrorBadURL))
             return nil
